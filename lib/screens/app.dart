@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:pacman/game/pacman_game.dart';
-import 'package:pacman/screens/main_menu.dart';
+import 'package:pacman/overlays/main_menu.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -48,7 +48,7 @@ class _AppState extends State<App> {
         overlayBuilderMap: {
           MainMenu.id: (_, PacmanGame gameRef) => MainMenu(game: gameRef)
         },
-        // initialActiveOverlays: const [MainMenu.id],
+        initialActiveOverlays: const [MainMenu.id],
       ),
     );
   }

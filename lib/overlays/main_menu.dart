@@ -14,13 +14,11 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu>
     with SingleTickerProviderStateMixin {
-
   double buttonWidth = 120;
 
   late Animation<double> logoAnimation;
   late AnimationController logoAnimationController;
   late double logoHeight = 0;
-  
 
   @override
   void initState() {
@@ -67,7 +65,10 @@ class _MainMenuState extends State<MainMenu>
           SizedBox(
             width: buttonWidth,
             child: OutlinedButton(
-                onPressed: () => debugPrint('Empezando juego'),
+                onPressed: () {
+                  debugPrint('Empezando juego');
+                  widget.game.overlays.remove('MainMenu');
+                },
                 child: const Text('Start')),
           ),
           const SizedBox(height: 20),
