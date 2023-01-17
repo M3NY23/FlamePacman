@@ -3,13 +3,26 @@ import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:pacman/game/components/pacman/pacman.dart';
 
-class PacmanGame extends FlameGame with HasTappableComponents, PanDetector {
-  late Pacman player;
+import 'components/world/world_map.dart';
+
+class PacmanGame extends FlameGame with HasTappableComponents, PanDetector, HasCollisionDetection {
+  Pacman pacman = Pacman();
   // El escenario de pacman mide 31 * 28 cuadros
   @override
   Future<void> onLoad() async {
-    player = Pacman(position: size / 2);
-    add(player);
+    add(WorldMap(position: Vector2(size.x/2, size.y*0.75), size: size, pacman: pacman));
+  }
+
+  @override
+  void onPanDown(DragDownInfo info) {
+    pacman.changeDirection(PacmanDirection.quite);
+    super.onPanDown(info);
+  }
+
+  @override
+  void onPanStart(DragStartInfo info) {
+    pacman.changeDirection(PacmanDirection.quite);
+    super.onPanStart(info);
   }
 
   @override
@@ -17,12 +30,12 @@ class PacmanGame extends FlameGame with HasTappableComponents, PanDetector {
     if (info.raw.velocity.pixelsPerSecond.dx.abs() >
         info.raw.velocity.pixelsPerSecond.dy.abs()) {
       // horizontal event
-      player.changeDirection(info.raw.velocity.pixelsPerSecond.dx < 0
+      pacman.changeDirection(info.raw.velocity.pixelsPerSecond.dx < 0
           ? PacmanDirection.left
           : PacmanDirection.right);
     } else {
       // vertical event
-      player.changeDirection(info.raw.velocity.pixelsPerSecond.dy < 0
+      pacman.changeDirection(info.raw.velocity.pixelsPerSecond.dy < 0
           ? PacmanDirection.up
           : PacmanDirection.down);
     }

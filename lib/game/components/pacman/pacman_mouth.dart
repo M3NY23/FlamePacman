@@ -12,13 +12,13 @@ class PacmanMouth extends PolygonComponent {
   double startMouth = 0, endMouth = 0, parentMid = 0;
   MouthState mouthState = MouthState.onClose;
 
-  PacmanMouth()
+  PacmanMouth({required double pacmanRadius})
       : super(
           [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)],
           paint: black,
         ) {
-    endMouth = Pacman.playerRadius * 2;
-    parentMid = Pacman.playerRadius;
+    endMouth = pacmanRadius * 2;
+    parentMid = pacmanRadius;
   }
 
   @override
@@ -42,14 +42,14 @@ class PacmanMouth extends PolygonComponent {
       case MouthState.onOpen:
         endMouth++;
         startMouth--;
-        if (endMouth == parentMid || startMouth == 0) {
+        if (startMouth <= 0) {
           mouthState = MouthState.onClose;
         }
         break;
       case MouthState.onClose:
         endMouth--;
         startMouth++;
-        if (endMouth == parentMid || startMouth == parentMid) {
+        if (startMouth >= parentMid) {
           mouthState = MouthState.onOpen;
         }
         break;

@@ -48,7 +48,7 @@ class _AppState extends State<App> {
         overlayBuilderMap: {
           MainMenu.id: (_, PacmanGame gameRef) => MainMenu(game: gameRef)
         },
-        initialActiveOverlays: const [MainMenu.id],
+        // initialActiveOverlays: const [MainMenu.id],
       ),
     );
   }
