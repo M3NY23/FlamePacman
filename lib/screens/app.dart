@@ -2,6 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:pacman/game/providers/world_map_provider.dart';
 import 'package:pacman/game/pacman_game.dart';
 import 'package:pacman/overlays/main_menu.dart';
 
@@ -14,6 +15,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   late FlameGame game;
+  late WorldMapProvider worldMapProvider = WorldMapProvider();
 
   @override
   void initState() {

@@ -4,15 +4,17 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:pacman/game/components/world/world_map_component.dart';
 
-class Wall extends PositionComponent {
+class Wall extends WorldMapComponent {
+  static Paint wallColor = BasicPalette.darkBlue.paint();
+  static const collisionPadding = 2;
 
-  static Paint wallColor = BasicPalette.blue.paint();
-
-  Wall({required Vector2 position, required double size}) : super(
-    position: position,
-    size: Vector2.all(size)
-  );
+  Wall(
+      {required super.position,
+      required super.size,
+      required super.xCoord,
+      required super.yCoord});
 
   @override
   Future<void> onLoad() async {
@@ -21,12 +23,20 @@ class Wall extends PositionComponent {
   }
 
   init() {
-    add(RectangleComponent.square(
-      paint: wallColor,
-      size: size.x));
+    var principalComponent =
+        RectangleComponent.square(paint: wallColor, size: size.x);
+    add(principalComponent);
     add(RectangleHitbox(
-      isSolid: true
+      isSolid: true,
+      size: Vector2(size.x - collisionPadding, size.y - collisionPadding),
+      position: principalComponent.size / 2,
+      anchor: Anchor.center,
     ));
+    // add(RectangleComponent(
+    //   size: Vector2(size.x - collisionPadding, size.y - collisionPadding),
+    //   position: principalComponent.size / 2,
+    //   anchor: Anchor.center,
+    //   paint: BasicPalette.white.paint(),
+    // ));
   }
-
 }
